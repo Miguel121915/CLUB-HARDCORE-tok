@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow Events - Acceso Privado</title>
+    <title>Shadow Events - Club Privado</title>
     <style>
         :root {
             --shadow-red: #8b0000;
-            --shadow-purple: #4a0e4e;
-            --shadow-dark: #0d0d0d;
-            --shadow-darker: #050505;
+            --shadow-dark: #050505;
             --shadow-text: #b0b0b0;
         }
 
@@ -31,29 +29,38 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s ease;
         }
 
         .lock-box {
             text-align: center;
             padding: 30px;
             border: 1px solid var(--shadow-red);
-            background: var(--shadow-darker);
-            box-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+            background: #0a0a0a;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
             max-width: 350px;
             width: 90%;
+            border-radius: 8px;
         }
 
+        /* Contenedor del QR con respaldo de carga */
         .qr-container {
             background: white;
             padding: 10px;
             margin: 20px auto;
-            width: 170px;
-            height: 170px;
+            width: 180px;
+            height: 180px;
             border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--shadow-red);
         }
 
-        .qr-container img { width: 100%; height: 100%; }
+        .qr-container img { 
+            width: 100%; 
+            height: 100%; 
+            display: block;
+        }
 
         .lock-input {
             background: #111;
@@ -64,7 +71,7 @@
             text-align: center;
             margin-bottom: 15px;
             width: 100%;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
             outline: none;
         }
 
@@ -77,144 +84,89 @@
             cursor: pointer;
             font-weight: bold;
             text-transform: uppercase;
-        }
-
-        /* --- ESTILOS DE LA PÁGINA --- */
-        header { 
-            background: var(--shadow-darker);
-            padding: 20px 5%; 
-            border-bottom: 1px solid var(--shadow-red);
-            display: flex; 
-            justify-content: space-between;
-            align-items: center;
-            position: sticky; top: 0; z-index: 100;
-        }
-
-        h1 { color: #fff; font-size: 24px; letter-spacing: 3px; }
-
-        .grid-eventos { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 25px; 
-            padding: 40px 5%; 
-        }
-
-        .card-evento { 
-            background: #0d0d0d; 
-            border: 1px solid #222; 
-            overflow: hidden; 
             transition: 0.3s;
         }
 
-        .card-evento:hover { border-color: var(--shadow-red); }
+        .lock-btn:hover { background: #ff0000; }
 
-        .img-box { width: 100%; height: 200px; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
-
-        .info-box { padding: 15px; }
-        .precio { color: var(--shadow-red); font-size: 22px; font-weight: bold; margin: 10px 0; display: block; }
-
-        /* --- CARRITO SIDEBAR --- */
-        #cart-sidebar { 
-            position: fixed; right: -400px; top: 0; width: 350px; 
-            height: 100%; background: #050505; 
-            border-left: 1px solid var(--shadow-red); 
-            transition: 0.4s; z-index: 1000; padding: 20px; 
+        /* --- ESTILOS DE LA PÁGINA --- */
+        header { 
+            background: #0a0a0a;
+            padding: 20px; 
+            border-bottom: 1px solid var(--shadow-red);
+            text-align: center;
         }
-        #cart-sidebar.active { right: 0; }
 
-        /* --- CHAT --- */
-        .chat-container {
-            position: fixed; bottom: 10px; right: 10px; width: 300px;
-            background: #0d0d0d; border: 1px solid var(--shadow-red);
+        .grid-eventos { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            padding: 40px; 
         }
-        .chat-header { background: var(--shadow-red); padding: 8px; color: white; cursor: pointer; }
-        #chat-display { height: 150px; overflow-y: auto; padding: 10px; font-size: 12px; }
+
+        .card { 
+            background: #0d0d0d; 
+            border: 1px solid #222; 
+            text-align: center;
+            padding-bottom: 20px;
+        }
+
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .precio { color: var(--shadow-red); font-size: 22px; font-weight: bold; display: block; margin: 10px 0; }
     </style>
 </head>
 <body>
 
     <div id="shadow-lock">
         <div class="lock-box">
-            <h2 style="color:white; font-size: 18px;">ACCESO RESTRINGIDO</h2>
-            <p style="color:var(--shadow-red); font-size: 11px; margin-top: 10px;">ESCANEÉ PARA OBTENER EL CÓDIGO</p>
+            <h2 style="color:white; letter-spacing: 2px;">SHADOW EVENTS</h2>
+            <p style="color:var(--shadow-red); font-size: 11px; margin-top: 10px; font-weight: bold;">ESCANEÉ EL QR PARA EL CÓDIGO</p>
             
             <div class="qr-container">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=CÓDIGO:%20HARDSTYLE2026" alt="QR Access">
+                <img src="https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=EL+CODIGO+ES:+HARDSTYLE2026&choe=UTF-8" alt="QR Code">
             </div>
 
-            <input type="password" id="accessCode" class="lock-input" placeholder="CÓDIGO">
-            <button class="lock-btn" onclick="verificarAcceso()">ENTRAR AL CLUB</button>
-            <p id="error-msg" style="color: red; font-size: 12px; margin-top: 15px; display: none;">CÓDIGO INCORRECTO</p>
+            <input type="password" id="accessCode" class="lock-input" placeholder="••••">
+            <button class="lock-btn" onclick="verificar()">ENTRAR</button>
+            <p id="error-msg" style="color: red; font-size: 12px; margin-top: 10px; display: none;">CÓDIGO INCORRECTO</p>
         </div>
     </div>
 
     <header>
-        <h1>SHADOW EVENTS</h1>
-        <button class="lock-btn" style="width: auto; padding: 8px 15px;" onclick="toggleCart()">CARRITO (<span id="cart-count">0</span>)</button>
+        <h1 style="color:white; letter-spacing: 5px;">CLUB HARDCORE</h1>
     </header>
 
-    <div id="cart-sidebar">
-        <h3>TUS TICKETS</h3>
-        <div id="cart-items" style="margin-top: 20px;"></div>
-        <button class="lock-btn" style="margin-top: 20px;" onclick="toggleCart()">CERRAR</button>
-    </div>
-
     <div class="grid-eventos">
-        <div class="card-evento">
-            <div class="img-box"><img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=500" alt="Defqon"></div>
-            <div class="info-box">
-                <strong>DEFQON.1 2026</strong>
-                <span class="precio">$180.00</span>
-                <button class="lock-btn" onclick="agregar('Defqon.1', 180)">COMPRAR</button>
-            </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=500" alt="Defqon">
+            <h3 style="margin-top:15px;">DEFQON.1 2026</h3>
+            <span class="precio">$180.00</span>
+            <button class="lock-btn" style="width: 80%;">AÑADIR</button>
         </div>
-        <div class="card-evento">
-            <div class="img-box"><img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=500" alt="Qlimax"></div>
-            <div class="info-box">
-                <strong>QLIMAX</strong>
-                <span class="precio">$150.00</span>
-                <button class="lock-btn" onclick="agregar('Qlimax', 150)">COMPRAR</button>
-            </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=500" alt="Qlimax">
+            <h3 style="margin-top:15px;">QLIMAX</h3>
+            <span class="precio">$150.00</span>
+            <button class="lock-btn" style="width: 80%;">AÑADIR</button>
         </div>
-    </div>
-
-    <div class="chat-container">
-        <div class="chat-header">💬 CHAT COMUNIDAD</div>
-        <div id="chat-display"></div>
     </div>
 
     <script>
-        // VERIFICACIÓN
-        function verificarAcceso() {
+        function verificar() {
             const pass = "HARDSTYLE2026";
             const input = document.getElementById('accessCode').value;
             if(input === pass) {
-                document.getElementById('shadow-lock').style.opacity = "0";
-                setTimeout(() => { document.getElementById('shadow-lock').style.display = "none"; }, 500);
+                document.getElementById('shadow-lock').style.display = "none";
             } else {
                 document.getElementById('error-msg').style.display = "block";
+                document.getElementById('accessCode').value = "";
             }
         }
 
-        // CARRITO
-        let carrito = [];
-        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
-        function agregar(n, p) {
-            carrito.push({n, p});
-            document.getElementById('cart-count').innerText = carrito.length;
-            document.getElementById('cart-items').innerHTML += `<p style="color:#fff; margin-bottom:10px;">${n} - $${p}</p>`;
-            toggleCart();
-        }
-
-        // CHAT SIMULADO
-        setInterval(() => {
-            const d = document.getElementById('chat-display');
-            const msgs = ["¿Quién va a Defqon?", "¡HARDSTYLE!", "Ya tengo mi entrada", "Shadow Events es lo mejor"];
-            const msg = msgs[Math.floor(Math.random() * msgs.length)];
-            d.innerHTML += `<div><strong style="color:red;">User:</strong> ${msg}</div>`;
-            d.scrollTop = d.scrollHeight;
-        }, 5000);
+        // Permitir entrar con la tecla Enter
+        document.getElementById('accessCode').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') verificar();
+        });
     </script>
 </body>
 </html>
