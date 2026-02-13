@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Events - Acceso Privado</title>
+    <style>
+        :root { --red: #8b0000; --dark: #050505; --grey: #b0b0b0; }
+        body { font-family: sans-serif; background: #000; color: white; margin: 0; overflow-x: hidden; }
+
+        /* PANTALLA DE BLOQUEO */
+        #lock-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 9999; display: flex; justify-content: center; align-items: center;
+        }
+        .lock-box {
+            text-align: center; padding: 40px; border: 1px solid var(--red);
+            background: #0a0a0a; box-shadow: 0 0 20px var(--red);
+        }
+        input { 
+            background: #111; border: 1px solid #444; color: #fff; padding: 10px; 
+            margin: 20px 0; text-align: center; width: 200px; font-size: 18px;
+        }
+        .btn { background: var(--red); color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; }
+
+        /* CONTENIDO */
+        header { background: #0a0a0a; padding: 20px; border-bottom: 1px solid var(--red); text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
+        .card { background: #0d0d0d; border: 1px solid #222; overflow: hidden; }
+        .card img { width: 100%; height: 200px; object-fit: cover; opacity: 0.8; }
+        .info { padding: 15px; }
+        .price { color: var(--red); font-size: 22px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="lock-screen">
+        <div class="lock-box">
+            <h2>SHADOW EVENTS</h2>
+            <p style="color:var(--red)">ACCESO RESTRINGIDO</p>
+            <input type="password" id="pass" placeholder="CÓDIGO">
+            <br>
+            <button class="btn" onclick="check()">ENTRAR</button>
+            <p id="err" style="color:red; display:none; margin-top:10px;">CÓDIGO INCORRECTO</p>
+        </div>
+    </div>
+
+    <header>
+        <h1>CLUB HARDCORE</h1>
+    </header>
+
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=500" alt="Festival">
+            <div class="info">
+                <h3>DEFQON.1 2026</h3>
+                <span class="price">$180.00</span>
+                <p>Ubicación: Biddinghuizen, NL</p>
+                <button class="btn" style="width:100%">COMPRAR TICKET</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=500" alt="Qlimax">
+            <div class="info">
+                <h3>QLIMAX</h3>
+                <span class="price">$150.00</span>
+                <p>Ubicación: Gelredome, NL</p>
+                <button class="btn" style="width:100%">COMPRAR TICKET</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function check() {
+            const code = "HARDSTYLE2026";
+            const val = document.getElementById('pass').value;
+            if(val === code) {
+                document.getElementById('lock-screen').style.display = "none";
+            } else {
+                document.getElementById('err').style.display = "block";
+            }
+        }
+        // Enter para entrar
+        document.getElementById('pass').addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') check();
+        });
+    </script>
+</body>
+</html>
